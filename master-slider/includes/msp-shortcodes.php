@@ -39,7 +39,7 @@ function msp_masterslider_pb_shortcode( $atts, $content = null ) {
 	extract( $mixed );
 
 	$wrapper_open_tag  = sprintf( '<div class="avt_masterslider_el %s" >', esc_attr( $class ) );
-	$the_title_tag     = empty( $title ) ? '' : sprintf( '<h2>%s</h2>', $title );
+	$the_title_tag     = empty( $title ) ? '' : sprintf( '<h2>%s</h2>', wp_kses_post( $title ) );
 	$wrapper_close_tag = '</div>';
 	$slider_markup     = get_masterslider( $id );
 	$output 		   = $wrapper_open_tag . $the_title_tag . $slider_markup . $wrapper_close_tag;
@@ -514,7 +514,7 @@ function msp_masterslider_wrapper_shortcode( $atts, $content = null ) {
 								);
 } ?>
 				// slider setup
-				<?php echo esc_js( $instance_name ); ?>.setup("<?php echo $uid; ?>", {
+				<?php echo esc_js( $instance_name ); ?>.setup("<?php echo esc_attr($uid); ?>", {
 						width           : <?php echo (int)$width; ?>,
 						height          : <?php echo (int) $height; ?>,
 						minHeight       : <?php echo (int) $min_height; ?>,
@@ -683,17 +683,16 @@ function msp_masterslider_slide_shortcode( $atts, $content = null ) {
 
 	$css_class = empty( $css_class ) ? '' : ' '.$css_class;
 
-	$css_id    = empty( $css_id ) ? '' : 'id="'.$css_id.'"';
+	$css_id    = empty( $css_id ) ? '' : 'id="' . esc_attr($css_id) . '"';
 
-	$style     = esc_attr( $style );
 	$style    .= empty( $bgcolor ) ? '' : 'background-color:' . $bgcolor . ';';
-	$style_attr= empty( $style ) ? '' : 'style="'. $style .'"';
+	$style_attr= empty( $style ) ? '' : 'style="'. esc_attr( $style ) .'"';
 
 		// create delay attr if is set
 	$data_delay = empty( $delay ) ? '' : 'data-delay="'.( (float) $delay ).'"';
 
 	// create bg align attr if is set
-	$data_align = empty( $bgalign )?'':'data-fill-mode="'. $bgalign .'"';
+	$data_align = empty( $bgalign )?'':'data-fill-mode="'. esc_attr( $bgalign ) .'"';
 
 	// add slide starter tag
 	$slide_start_tag = sprintf( '<div %s class="ms-slide%s" %s %s %s >', $css_id, esc_attr( $css_class ), $data_delay, $data_align, $style_attr )."\n";
@@ -730,24 +729,24 @@ function msp_masterslider_slide_shortcode( $atts, $content = null ) {
 		if( $crop_width ||  $crop_height )
 			$src = msp_get_the_resized_image_src( $src, $crop_width, $crop_height, true );
 
-		$slide_content .= "\t\t\t\t\t" . sprintf('<img src="%s" alt="%s" title="%s" data-src="%s" />', $src_blank, $alt, $title, $src )."\n";
+		$slide_content .= "\t\t\t\t\t" . sprintf('<img src="%s" alt="%s" title="%s" data-src="%s" />', esc_url( $src_blank ), esc_attr( $alt ), esc_attr( $title ), esc_url( $src ) )."\n";
 	}
 
 	$self_video_markup = '';
 	// self host video background
 	if( ! empty( $mp4 ) )
-		 $self_video_markup .= "\t\t".sprintf('<source src="%s" type="video/mp4"/>', $mp4 )."\n";
+		 $self_video_markup .= "\t\t".sprintf('<source src="%s" type="video/mp4"/>', esc_url( $mp4 ) )."\n";
 
 	if( ! empty( $webm ) )
-		 $self_video_markup .= "\t\t".sprintf('<source src="%s" type="video/webm"/>', $webm )."\n";
+		 $self_video_markup .= "\t\t".sprintf('<source src="%s" type="video/webm"/>', esc_url( $webm ) )."\n";
 
 	if( ! empty( $ogg ) )
-		 $self_video_markup .= "\t\t".sprintf('<source src="%s" type="video/ogg"/>', $ogg )."\n";
+		 $self_video_markup .= "\t\t".sprintf('<source src="%s" type="video/ogg"/>', esc_url( $ogg ) )."\n";
 
 
 	if( ! empty( $self_video_markup ) ) {
 		$slide_content .= "\t".sprintf(	'<video data-autopause="%s" data-mute="%s" data-loop="%s" data-fill-mode="%s" >%s%s%s</video>',
-									msp_is_true( $autopause ), $mute, $loop, $vbgalign, "\n", $self_video_markup, "\t" )."\n";
+									msp_is_true( $autopause ), esc_attr( $mute ), esc_attr( $loop ), esc_attr( $vbgalign ), "\n", $self_video_markup, "\t" )."\n";
 	}
 
 
@@ -755,15 +754,15 @@ function msp_masterslider_slide_shortcode( $atts, $content = null ) {
 	if( ! empty( $link ) ){
 		$link = '{{slide-image-url}}' == $link ? msp_get_the_absolute_media_url( $src_full ) : esc_url($link);
 
-		$att_link_target = $target     ? 'target="'. $target .'"' : '';
-		$att_link_rel    = $link_rel   ? 'rel="'.    $link_rel .'"' : '';
-		$att_link_title  = $link_title ? 'title="'.  $link_title .'"' : '';
-		$att_link_class  = $link_class ? 'class="'.  $link_class .'"' : '';
-		$att_link_id     = $link_id    ? 'id="'.     $link_id .'"' : '';
+		$att_link_target = $target     ? 'target="'. esc_attr( $target ) .'"' : '';
+		$att_link_rel    = $link_rel   ? 'rel="'.    esc_attr( $link_rel ) .'"' : '';
+		$att_link_title  = $link_title ? 'title="'.  esc_attr( $link_title ) .'"' : '';
+		$att_link_class  = $link_class ? 'class="'.  esc_attr( $link_class ) .'"' : '';
+		$att_link_id     = $link_id    ? 'id="'.     esc_attr( $link_id ) .'"' : '';
 
 		$slide_content .= "\t".sprintf('<a href="%s" %s %s %s %s %s>%s</a>', $link, $att_link_target,
 		                               			$att_link_rel, $att_link_title, $att_link_class,
-		                               			$att_link_id, $title )."\n";
+		                               			$att_link_id, wp_kses_post( $title ) )."\n";
 	}
 
 	// add layers that passed as content
@@ -776,12 +775,12 @@ function msp_masterslider_slide_shortcode( $atts, $content = null ) {
 		if( strpos( $thumb, '{{thumb}}' ) === false )
 			$thumb = msp_get_the_absolute_media_url( $thumb );
 
-		$slide_content .= "\t".sprintf('<img class="ms-thumb" src="%s" alt="%s" />', $thumb, $alt )."\n";
+		$slide_content .= "\t".sprintf('<img class="ms-thumb" src="%s" alt="%s" />', esc_url( $thumb ), esc_attr( $alt ) )."\n";
 	}
 
 	// markup for thumb in tab
-	$tab_image   = empty( $tab_thumb ) ? '' : sprintf('<img class="ms-tab-thumb" src="%s" alt="%s" />', msp_get_the_absolute_media_url( $tab_thumb ), $alt )."\n";
-	$tab_context = empty( $tab )       ? '' : sprintf('<div class="ms-tab-context">%s</div>', str_replace( '&quote;', '"', wp_specialchars_decode( $tab ) ), $alt )."\n";
+	$tab_image   = empty( $tab_thumb ) ? '' : sprintf('<img class="ms-tab-thumb" src="%s" alt="%s" />', msp_get_the_absolute_media_url( $tab_thumb ), esc_attr( $alt ) )."\n";
+	$tab_context = empty( $tab )       ? '' : sprintf('<div class="ms-tab-context">%s</div>', wp_kses_post( str_replace( '&quote;', '"', wp_specialchars_decode( $tab ) ), $alt ))."\n";
 
 	// tab markup
 	if( ! empty( $tab_image ) || ! empty( $tab_context ) ) {
@@ -790,7 +789,7 @@ function msp_masterslider_slide_shortcode( $atts, $content = null ) {
 
 	// video markup
 	if( ! empty( $video ) )
-		 $slide_content .= "\t".sprintf('<a href="%s" data-type="video"></a>', $video )."\n";
+		 $slide_content .= "\t".sprintf('<a href="%s" data-type="video"></a>', esc_url( $video ) )."\n";
 
 	// end slide content ////////////////////////////////////////////
 
@@ -875,7 +874,7 @@ function msp_masterslider_layer_shortcode( $atts, $content = null ) {
 
 
 	$wrapper_class = trim( 'ms-layer '. $css_class.' '. $style_id );
-	$id_attr = empty( $css_id ) ? '' : 'id="'.$css_id.'"';
+	$id_attr = empty( $css_id ) ? '' : 'id="'. esc_attr( $css_id ) .'"';
 
 
 	// position attrs
@@ -1003,20 +1002,20 @@ function msp_masterslider_layer_shortcode( $atts, $content = null ) {
 	 	// if was linked image
 		if( ! empty( $link ) && 'true' != $use_action ) {
 
-				$layer_image = "\n\t".sprintf( '<img src="%s" data-src="%s" alt="%s" style="%s" %s %s %s %s />', $src_blank, $src, $alt, $style_size, $effect_attrs, $data_type, $data_parallax, $position_attrs )."\n";
-				$layer .= sprintf( '<a %s class="%s" href="%s" target="%s" %s >%s</a>', $id_attr, $wrapper_class, $link, $target, $rel_attr, $layer_image ). "\n";
+				$layer_image = "\n\t".sprintf( '<img src="%s" data-src="%s" alt="%s" style="%s" %s %s %s %s />', esc_url( $src_blank ), esc_url( $src ), esc_attr( $alt ), esc_attr( $style_size ), $effect_attrs, $data_type, $data_parallax, $position_attrs )."\n";
+				$layer .= sprintf( '<a %s class="%s" href="%s" target="%s" %s >%s</a>', $id_attr, esc_attr( $wrapper_class ), esc_url( $link ), esc_attr( $target ), $rel_attr, $layer_image ). "\n";
 
 		// or single image
 		} else {
 			$layer .= sprintf( '<img %s class="%s" src="%s" data-src="%s" alt="%s" style="%s" %s %s %s %s %s />',
-									 $id_attr, $wrapper_class, $src_blank, $src, $alt, $style_size, $effect_attrs, $common_attrs, $rel_attr, $data_action, $position_attrs )."\n";
+									 $id_attr, esc_attr( $wrapper_class ), esc_url( $src_blank ), esc_url( $src ), esc_attr( $alt ), esc_attr( $style_size ), $effect_attrs, $common_attrs, $rel_attr, $data_action, $position_attrs )."\n";
 		}
 
 	} elseif( 'button' == $type ) {
 
 		$layer_content = ! empty( $content ) ? do_shortcode( $content ) : '';
 	 	$layer = sprintf( '<a %s href="%s" target="%s" class="%s %s" %s %s %s %s %s >%s</a>',
-								 $id_attr, $link, $target, $wrapper_class, $btn_class, $effect_attrs, $common_attrs, $position_attrs, $rel_attr, $data_action, $layer_content )."\n";
+								 $id_attr, esc_url( $link ), esc_attr( $target ), esc_attr( $wrapper_class ), esc_attr( $btn_class ), $effect_attrs, $common_attrs, $position_attrs, $rel_attr, $data_action, $layer_content )."\n";
 
 	// if layer type was text, video or hotspot
 	} else {
@@ -1026,7 +1025,7 @@ function msp_masterslider_layer_shortcode( $atts, $content = null ) {
 		if( 'video' == $type ) {
 			// add cover image if src attr is set
 			if( ! empty( $src ) )
-				$layer_content .= sprintf( '<img src="%s" data-src="%s" alt="%s" />', $src_blank, $src, $alt );
+				$layer_content .= sprintf( '<img src="%s" data-src="%s" alt="%s" />', esc_url( $src_blank ), $src, $alt );
 			// add video iframe markup if video is set
 			if( ! empty( $video ) ){
 					$vid_width  = empty( $width  ) ? '460' : rtrim( $width , 'px' ) ;
@@ -1040,7 +1039,7 @@ function msp_masterslider_layer_shortcode( $atts, $content = null ) {
 		}
 
 		$layer = sprintf( '<div %s class="%s" style="%s" %s %s %s %s >%s</div>',
-								 $id_attr, $wrapper_class, $style_size, $data_link, $effect_attrs, $common_attrs, $position_attrs, $layer_content )."\n";
+								 $id_attr, esc_attr( $wrapper_class ), esc_attr( $style_size ), $data_link, $effect_attrs, $common_attrs, $position_attrs, $layer_content )."\n";
 	}
 
 	// end layer markup generation //////////////////////////////////////////

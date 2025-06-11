@@ -6,21 +6,24 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Tags: slider, image slider, wordpress slider, video slider
 Requires PHP: 5.4
 Requires at least: 5.0
-Tested up to: 6.5.2
-Stable tag: 3.9.10
+Tested up to: 6.8.1
+Stable tag: 3.10.9
 
 Build SEO friendly sliders fast and easy with touch swipe navigation that works smoothly across all devices.
 
 == Description ==
 
-[Demos](http://avt.li/mswftem "Live demos of Master Slider free version") | [Features](http://avt.li/mswfea "All features") | [Documentation](http://avt.li/mswfdoc "Master Slider documentation") | [Videos](http://avt.li/msfvids "Watch all video tutorials") | [Support](http://wordpress.org/support/plugin/master-slider "Free support")
-
-[youtube https://www.youtube.com/watch?v=nyjpGEHwOn8]
-
+[Meet **Depicter**](http://wordpress.org/plugins/depicter "Depicter"), the next generation of Master slider, the ultimate tool for creating engaging WordPress slider, carousel, hero section, popup, post slider, product slider, WooCommerce slider, testimonial slider, gallery slider.
+[Start using Depicter, it's free!](http://wordpress.org/plugins/depicter "Get started with Depicter")
 
 = Overview =
 
 Master Slider is a free SEO friendly, responsive image and video slider that truly works on all major devices, and it has super smooth hardware accelerated transitions. It supports touch navigation with pure swipe gesture that you have never experienced before.
+
+[Demos](http://avt.li/mswftem "Live demos of Master Slider free version") | [Features](http://avt.li/mswfea "All features") | [Documentation](http://avt.li/mswfdoc "Master Slider documentation") | [Videos](http://avt.li/msfvids "Watch all video tutorials") | [Support](http://wordpress.org/support/plugin/master-slider "Free support")
+
+[youtube https://www.youtube.com/watch?v=nyjpGEHwOn8]
+
 With our 8 Starter Samples, creating slideshows has never been so fast and enjoyable!
 
 >Looking for a perfect Free WordPress theme optimized for both Master Slider and Elementor? [Get Phlox theme](http://avt.li/msphpp "Phlox theme - Free Minimal and Responsive WordPress Theme")
@@ -237,9 +240,28 @@ Bugs can be reported in our [support forums](http://wordpress.org/tags/master-sl
 
 == Changelog ==
 
+= 3.10.9 =
+= Version 3.10.9/ (11.06.2025) =
+- [Improvement]: Security vulnerability fixed.
+
+= 3.10.7 =
+= Version 3.10.7/ (08.03.2025) =
+- [Improvement]: Compatibility with WP 6.7.2 applied.
+- [Improvement]: Security vulnerability fixed.
+
+= 3.10.5 =
+= Version 3.10.5/ (14.12.2024) =
+- [Improvement]: Compatibility with WP 6.7 applied.
+- [Improvement]: Performance improvement.
+- [Improvement]: Security vulnerability fixed.
+
+= 3.10.0 =
+= Version 3.10.0/ (20.08.2024) =
+- [Improvement]: Minor bugs fixed.
+
 = 3.9.10 =
 = Version 3.9.8/ (11.05.2024) =
-- [Improvement]: Minor security vulnerability fixed.
+- [Improvement]: Minor bugs fixed.
 
 = 3.9.8 =
 = Version 3.9.8/ (28.03.2024) =

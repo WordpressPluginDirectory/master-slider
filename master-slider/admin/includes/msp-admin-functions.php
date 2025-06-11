@@ -253,3 +253,20 @@ if ( ! function_exists( 'axpp' ) ) {
 	}
 
 }
+
+/**
+ * Get clean css
+ *
+ * @param string $css
+ * @return string
+ */
+function msp_get_clean_css( $css ) {
+    if ( empty( $css ) ) {
+        return '';
+    }
+
+    // Comprehensive regex to filter out various XSS vectors 
+    $pattern = '/(expression|javascript|vbscript|moz-binding|@import|@charset|data:)/i'; 
+    $css = preg_replace($pattern, '', $css);
+    return strip_tags( $css );
+}

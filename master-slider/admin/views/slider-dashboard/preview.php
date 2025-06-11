@@ -15,14 +15,14 @@ if( isset( $_REQUEST['slider_params'] ) && ! empty( $_REQUEST['slider_params'] )
   $parser = msp_get_parser();
     $parser->set_data( $slider_params );
     $slider_custom_css = $parser->get_styles();
-    printf( "<!-- Custom slider styles -->\n<style>%s</style>", $slider_custom_css );
+    printf( "<!-- Custom slider styles -->\n<style>%s</style>", msp_get_clean_css( $slider_custom_css ) );
 
 } elseif ( isset( $_REQUEST['slider_id'] ) && ! empty( $_REQUEST['slider_id'] ) ) {
   $slider_id = sanitize_text_field( $_REQUEST['slider_id'] );
   $slider_shortcodes = msp_get_ms_slider_shortcode_by_slider_id( $slider_id );
   echo do_shortcode( $slider_shortcodes );
   // print slider custom css inline in live preview
-  printf( "<!-- Custom slider styles -->\n<style>%s</style>", msp_get_slider_custom_css( $slider_id ) );
+  printf( "<!-- Custom slider styles -->\n<style>%s</style>", msp_get_clean_css( msp_get_slider_custom_css( $slider_id ) ) );
 
 } else {
   _e( 'Not found.', 'master-slider' );

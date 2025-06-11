@@ -818,7 +818,7 @@ class MSP_Parser {
 
     // custom css code for sliders added
     $setting     = $this->get_slider_setting();
-    $styles_list[] = $setting['custom_style'];
+    $styles_list[] = sanitize_text_field( $setting['custom_style'] );
 
     return implode( $this->join_char, $styles_list );
   }
