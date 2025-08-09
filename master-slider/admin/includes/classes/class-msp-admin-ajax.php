@@ -14,6 +14,7 @@ class MSP_Admin_Ajax {
     add_action( 'wp_ajax_msp_create_new_handler', array( $this, 'create_new_slider'   ) );
     add_action( 'wp_ajax_msp_dismiss_notice'    , array( $this, 'dimiss_notice'       ) );
     add_action( 'wp_ajax_msp_dismiss_rate_notice', array( $this, 'dismiss_rate_notice') );
+    add_action( 'wp_ajax_msp_skip_depicter_intro_modal', array( $this, 'skip_depicter_intro_modal') );
   }
 
 
@@ -188,6 +189,16 @@ class MSP_Admin_Ajax {
       }
       msp_set_transient( 'msp_rate_notice_missed', 'yes', $expire_date );
       wp_send_json_success( array( 'message' => __( 'Successfully dismissed ..', 'master-slider' ) ) );
+  }
+
+  public function skip_depicter_intro_modal() {
+    if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], "ms-dismiss-depicter-intro-modal") ) {
+        wp_send_json_error( array( 'message' => __( 'Authorization failed!', 'master-slider' ) ) );
+    }
+
+
+    update_option( '_depicter_intro_modal_skip_time', current_time('mysql') );
+    wp_send_json_success( array( 'message' => __( 'Successfully dismissed ..', 'master-slider' ) ) );
   }
 
 }

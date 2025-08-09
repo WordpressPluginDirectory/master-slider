@@ -183,6 +183,11 @@ class Master_Slider_Admin {
           if ( ! empty( $custom_fonts ) )
             wp_enqueue_style( 'master-slider-admin-fonts', 'http://fonts.googleapis.com/css?family=' . $custom_fonts, [], false, 'all' );
         }
+        
+        $skip_date = get_option('_depicter_intro_modal_skip_time', '');
+        if ( empty( $skip_date ) || strtotime( $skip_date ) <= strtotime('-30 days') ) {
+          $admin_assets->enqueue_depicter_intro_assets();
+        }
     }
 
     if ( MSWP_SLUG . '_page_' . MSWP_SLUG . '-setting' == $screen->id ) {

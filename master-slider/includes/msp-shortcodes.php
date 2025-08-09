@@ -1066,6 +1066,8 @@ function msp_masterslider_slide_info_shortcode( $atts, $content = null ) {
 
 	 extract( $args );
 
+	 $tag_name = strtolower( $tag_name ) == 'script' ? 'div' : $tag_name;
+
      if( is_array( $css_class ) ){
         $css_class = join( ' ' , $css_class );
      } else {

@@ -309,12 +309,29 @@
                 }
             );
 
-        });
+		});
 
+		if (window.depicterIntroModal) {
+			$('#depicter-intro-modal .depicter-modal-buttons .depicter-btn-secondary').on('click', function () {
+				console.log("clicked");
+
+				$.ajax({
+					url: window.depicterIntroModal.ajax_url,
+					method: 'POST',
+					data: {
+						action: window.depicterIntroModal.action,
+						nonce: window.depicterIntroModal.nonce
+					},
+					success: function (response) {
+						if (!response.success) {
+							alert(response.data.message);
+						}
+					}
+				});
+			});
+		}
 	});
 
 
 
 }(jQuery));
-
-

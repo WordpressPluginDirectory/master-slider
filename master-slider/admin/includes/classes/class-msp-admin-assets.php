@@ -43,6 +43,30 @@ class MSP_Admin_Assets {
     wp_enqueue_style( MSWP_SLUG .'-main-style',   MSWP_AVERTA_ADMIN_URL . '/views/slider-panel/css/msp-style.css',        array(), MSWP_AVERTA_VERSION );
   }
 
+  public function enqueue_depicter_intro_assets() {
+    wp_enqueue_style(
+        'depicter-intro-modal',
+        MSWP_AVERTA_ADMIN_URL . '/assets/css/depicter-intro-modal.css'
+    );
+    
+    wp_enqueue_script(
+        'depicter-intro-modal',
+        MSWP_AVERTA_ADMIN_URL . '/assets/js/depicter-intro-modal.js',
+        array(),
+        '1.0.0',
+        true
+    );
+
+    wp_add_inline_script( 'depicter-intro-modal', 'window.depicterIntroModal = ' . wp_json_encode([
+      'enabled' => true,
+      'link' => 'https://depicter.com/download',
+      'basePath' => MSWP_AVERTA_ADMIN_URL . '/assets/images/thirdparty',
+      'ajax_url' => admin_url('admin-ajax.php'),
+      'action' => 'msp_skip_depicter_intro_modal',
+      'nonce' => wp_create_nonce('ms-dismiss-depicter-intro-modal')
+    ]), 'before');
+  }
+
   public function enqueue_global_assets(){
 
     $this->load_global_styles();

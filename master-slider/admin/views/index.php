@@ -32,6 +32,8 @@ add_filter( 'admin_footer_text',  'msp_thankyou_footer' );
 
 ?>
 
+<div id="depicter-intro-modal"></div>
+
 <div id="msp-main-wrapper" class="wrap" data-nonce="<?php echo esc_attr( $msp_nonce ); ?>" >
 
 <?php

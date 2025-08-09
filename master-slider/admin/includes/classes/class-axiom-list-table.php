@@ -14,7 +14,7 @@ class Axiom_List_Table {
 	 * @var array
 	 * @access protected
 	 */
-	var $items;
+	public $items;
 
 	/**
 	 * Various information about the current table
@@ -23,7 +23,7 @@ class Axiom_List_Table {
 	 * @var array
 	 * @access private
 	 */
-	var $_args;
+	public $_args;
 
 	/**
 	 * Various information needed for displaying the pagination
@@ -32,7 +32,7 @@ class Axiom_List_Table {
 	 * @var array
 	 * @access private
 	 */
-	var $_pagination_args = array();
+	public $_pagination_args = array();
 
 	/**
 	 * The current screen
@@ -41,7 +41,7 @@ class Axiom_List_Table {
 	 * @var object
 	 * @access protected
 	 */
-	var $screen;
+	public $screen;
 
 	/**
 	 * Cached bulk actions
@@ -50,7 +50,7 @@ class Axiom_List_Table {
 	 * @var array
 	 * @access private
 	 */
-	var $_actions;
+	public $_actions;
 
 	/**
 	 * Cached pagination output
@@ -59,7 +59,9 @@ class Axiom_List_Table {
 	 * @var string
 	 * @access private
 	 */
-	var $_pagination;
+	public $_pagination;
+
+	public $_column_headers;
 
 	/**
 	 * Constructor. The child class should call this constructor from its own constructor
